@@ -6,37 +6,37 @@ import {DatabaseConnection} from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const RegisterUser = ({navigation}) => {
-    let [userName, setUserName] = useState('');
-    let [userContact, setUserContact] = useState('');
-    let [userAddress, setUserAddress] = useState('');
+const RegisterMovie = ({navigation}) => {
+    let [MovieName, setMovieName] = useState('');
+    let [MovieStars, setMovieStars] = useState('');
+    let [MovieResenha, setMovieResenha] = useState('');
 
     let register_user = () => {
-        console.log(userName, userContact, userAddress);
+        console.log(MovieName, MovieStars, MovieResenha);
 
-        if (!userName) {
+        if (!MovieName) {
             alert('Por favor preencha o nome !');
             return;
         }
-        if (!userContact) {
+        if (!MovieStars) {
             alert('Por favor preencha o contato');
             return;
         }
-        if (!userAddress) {
+        if (!MovieResenha) {
             alert('Por favor preencha o endereço !');
             return;
         }
 
         db.transaction(function (tx) {
             tx.executeSql(
-                 'INSERT INTO table_user (user_name, user_contact, user_address) VALUES (?,?,?)',
-                 [userName, userContact, userAddress],
+                 'INSERT INTO table_movie (movie_name, movie_stars, movie_resenha) VALUES (?,?,?)',
+                 [MovieName, MovieStars, MovieResenha],
                  (tx, results) => {
                      console.log('Results', results.rowsAffected);
                      if (results.rowsAffected > 0) {
                          Alert.alert(
                               'Sucesso',
-                              'Usuário Registrado com Sucesso !!!',
+                              'Filme Registrado com Sucesso !!!',
                               [
                                   {
                                       text: 'Ok',
@@ -45,7 +45,7 @@ const RegisterUser = ({navigation}) => {
                               ],
                               {cancelable: false}
                          );
-                     } else alert('Erro ao tentar Registrar o Usuário !!!');
+                     } else alert('Erro ao tentar Registrar o Filme !!!');
                  }
             );
         });
@@ -60,25 +60,25 @@ const RegisterUser = ({navigation}) => {
                               behavior="padding"
                               style={{flex: 1, justifyContent: 'space-between'}}>
                              <Mytextinput
-                                  placeholder="Entre com o Nome"
+                                  placeholder="Nome do Filme"
                                   onChangeText={
-                                      (userName) => setUserName(userName)
+                                      (MovieName) => setMovieName(MovieName)
                                   }
                                   style={{padding: 10}}
                              />
                              <Mytextinput
-                                  placeholder="Entre com o Telefone"
+                                  placeholder="Quantas estrelas para este filme?"
                                   onChangeText={
-                                      (userContact) => setUserContact(userContact)
+                                      (MovieStars) => setMovieStars(MovieStars)
                                   }
                                   maxLength={10}
                                   keyboardType="numeric"
                                   style={{padding: 10}}
                              />
                              <Mytextinput
-                                  placeholder="Entre com o Endereço"
+                                  placeholder="Resenha"
                                   onChangeText={
-                                      (userAddress) => setUserAddress(userAddress)
+                                      (MovieResenha) => setMovieResenha(MovieResenha)
                                   }
                                   maxLength={225}
                                   numberOfLines={5}
@@ -94,4 +94,4 @@ const RegisterUser = ({navigation}) => {
     );
 };
 
-export default RegisterUser;
+export default RegisterMovie;

@@ -6,11 +6,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import HomeScreen from './src/pages/HomeScreen';
-import RegisterUser from './src/pages/RegisterUser';
-import UpdateUser from './src/pages/UpdateUser';
-import ViewUser from './src/pages/ViewUser';
-import ViewAllUser from './src/pages/ViewAllUser';
-import DeleteUser from './src/pages/DeleteUser';
+import RegisterMovie from "./src/pages/RegisterMovie";
+import UpdateMovie from './src/pages/UpdateMovie';
+import ViewMovie from './src/pages/ViewMovie';
+import ViewAllMovies from './src/pages/ViewAllMovies';
+import DeleteMovie from './src/pages/DeleteMovie';
 
 const Stack = createStackNavigator();
 
@@ -22,21 +22,22 @@ const App = () => {
                       name="HomeScreen"
                       component={HomeScreen}
                       options={{
-                          title: 'Registro de Usuários',
+                          title: 'Supreme Broccoli - the must have app for film lovers',
                           headerStyle: {
                               backgroundColor: '#00AD98',
                           },
                           headerTintColor: '#fff',
                           headerTitleStyle: {
                               fontWeight: 'bold',
+                              whiteSpace: ''
                           },
                       }}
                  />
                  <Stack.Screen
                       name="Register"
-                      component={RegisterUser}
+                      component={RegisterMovie}
                       options={{
-                          title: 'Cadastrar Usuário',
+                          title: 'Cadastrar Novo Filme',
                           headerStyle: {
                               backgroundColor: '#2992C4',
                           },
@@ -48,9 +49,9 @@ const App = () => {
                  />
                  <Stack.Screen
                       name="Update"
-                      component={UpdateUser}
+                      component={UpdateMovie}
                       options={{
-                          title: 'Atualizar Usuário',
+                          title: 'Atualizar Resenha',
                           headerStyle: {
                               backgroundColor: '#A45BB9',
                           },
@@ -62,9 +63,9 @@ const App = () => {
                  />
                  <Stack.Screen
                       name="View"
-                      component={ViewUser}
+                      component={ViewMovie}
                       options={{
-                          title: 'Visualizar Usuário',
+                          title: 'Visualizar Resenha',
                           headerStyle: {
                               backgroundColor: '#F9AD29',
                           },
@@ -76,9 +77,9 @@ const App = () => {
                  />
                  <Stack.Screen
                       name="ViewAll"
-                      component={ViewAllUser}
+                      component={ViewAllMovies}
                       options={{
-                          title: 'Visualizar Todos os Usuários',
+                          title: 'Visualizar Todos as Resenhas',
                           headerStyle: {
                               backgroundColor: '#384F62',
                           },
@@ -90,9 +91,9 @@ const App = () => {
                  />
                  <Stack.Screen
                       name="Delete"
-                      component={DeleteUser}
+                      component={DeleteMovie}
                       options={{
-                          title: 'Excluir Usuário',
+                          title: 'Excluir Resenha',
                           headerStyle: {
                               backgroundColor: '#D1503A',
                           },

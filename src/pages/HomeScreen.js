@@ -9,14 +9,14 @@ const HomeScreen = ({navigation}) => {
     useEffect(() => {
         db.transaction(function (txn) {
             txn.executeSql(
-                 "SELECT name FROM sqlite_master WHERE type='table' AND name='table_user'",
+                 "SELECT name FROM sqlite_master WHERE type='table' AND name='table_movie'",
                  [],
                  function (tx, res) {
                      console.log('item:', res.rows.length);
                      if (res.rows.length === 0) {
-                         txn.executeSql('DROP TABLE IF EXISTS table_user', []);
+                         txn.executeSql('DROP TABLE IF EXISTS table_movie', []);
                          txn.executeSql(
-                              'CREATE TABLE IF NOT EXISTS table_user(user_id INTEGER PRIMARY KEY AUTOINCREMENT, user_name VARCHAR(20), user_contact INT(10), user_address VARCHAR(255))',
+                              'CREATE TABLE IF NOT EXISTS table_movie(movie_id INTEGER PRIMARY KEY AUTOINCREMENT, movie_name VARCHAR(20), movie_stars INT(10), movie_resenha VARCHAR(255))',
                               []
                          );
                      }
@@ -32,35 +32,35 @@ const HomeScreen = ({navigation}) => {
                      <View style={{flex: 1}}>
 
                          <MyImageButton
-                              title="Registrar Usuário"
+                              title="Cadastrar Novo Filme"
                               btnColor='#2992C4'
-                              btnIcon="user-plus"
+                              btnIcon="filmstrip"
                               customClick={() => navigation.navigate('Register')}
                          />
 
                          <MyImageButton
-                              title="Atualizar Usuário"
+                              title="Atualizar Resenha"
                               btnColor='#A45BB9'
-                              btnIcon="user-circle"
+                              btnIcon="movie-edit-outline"
                               customClick={() => navigation.navigate('Update')}
                          />
 
                          <MyImageButton
-                              title="Visualizar Usuário"
+                              title="Visualizar Resenha"
                               btnColor='#F9AD29'
-                              btnIcon="user"
+                              btnIcon="movie-search-outline"
                               customClick={() => navigation.navigate('View')}
                          />
                          <MyImageButton
                               title="Visualizar Todos"
                               btnColor='#384F62'
-                              btnIcon="users"
+                              btnIcon="movie-roll"
                               customClick={() => navigation.navigate('ViewAll')}
                          />
                          <MyImageButton
-                              title="Excluir Usuário"
+                              title="Excluir Resenha"
                               btnColor='#D1503A'
-                              btnIcon="user-times"
+                              btnIcon="movie-remove-outline"
                               customClick={() => navigation.navigate('Delete')}
                          />
                      </View>

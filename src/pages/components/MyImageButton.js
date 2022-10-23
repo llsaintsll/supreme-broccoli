@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const MyImageButton = (props) => {
 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         marginTop: 16,
         marginLeft: 35,
         marginRight: 35,
-        borderRadius: 5,
+        borderRadius: 100,
     },
     text: {
         color: '#ffffff',

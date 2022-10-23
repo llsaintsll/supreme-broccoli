@@ -8,71 +8,71 @@ import {DatabaseConnection} from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const UpdateUser = ({navigation}) => {
-    let [inputUserId, setInputUserId] = useState('');
-    let [userName, setUserName] = useState('');
-    let [userContact, setUserContact] = useState('');
-    let [userAddress, setUserAddress] = useState('');
+const UpdateMovie = ({navigation}) => {
+    let [inputMovieId, setInputMovieId] = useState('');
+    let [MovieName, setMovieName] = useState('');
+    let [MovieStars, setMovieStars] = useState('');
+    let [MovieResenha, setMovieResenha] = useState('');
 
-    let updateAllStates = (name, contact, address) => {
-        setUserName(name);
-        setUserContact(contact);
-        setUserAddress(address);
+    let updateAllStates = (name, stars, resenha) => {
+        setMovieName(name);
+        setMovieStars(stars);
+        setMovieResenha(resenha);
     };
 
-    let searchUser = () => {
-        console.log(inputUserId);
+    let searchMovie = () => {
+        console.log(inputMovieId);
         db.transaction((tx) => {
             tx.executeSql(
-                 'SELECT * FROM table_user where user_id = ?',
-                 [inputUserId],
+                 'SELECT * FROM table_movie where movie_id = ?',
+                 [inputMovieId],
                  (tx, results) => {
                      var len = results.rows.length;
                      if (len > 0) {
                          let res = results.rows.item(0);
                          updateAllStates(
-                              res.user_name,
-                              res.user_contact,
-                              res.user_address
+                              res.movie_name,
+                              res.movie_stars,
+                              res.movie_resenha
                          );
                      } else {
-                         alert('Usuário não encontrado!');
+                         alert('Filme não encontrado!');
                          updateAllStates('', '', '');
                      }
                  }
             );
         });
     };
-    let updateUser = () => {
-        console.log(inputUserId, userName, userContact, userAddress);
+    let updateMovie = () => {
+        console.log(inputMovieId, MovieName, MovieStars, MovieResenha);
 
-        if (!inputUserId) {
+        if (!inputMovieId) {
             alert('Por Favor informe o Código!');
             return;
         }
-        if (!userName) {
+        if (!MovieName) {
             alert('Por favor informe o Nome !');
             return;
         }
-        if (!userContact) {
-            alert('Por Favor informe o Telefone !');
+        if (!MovieStars) {
+            alert('Por Favor informe o numero de estrelas !');
             return;
         }
-        if (!userAddress) {
-            alert('Por Favor informe o endereço !');
+        if (!MovieResenha) {
+            alert('Por Favor informe o inicio da resenha !');
             return;
         }
 
         db.transaction((tx) => {
             tx.executeSql(
-                 'UPDATE table_user set user_name=?, user_contact=? , user_address=? where user_id=?',
-                 [userName, userContact, userAddress, inputUserId],
+                 'UPDATE table_movie set movie_name=?, movie_stars=? , movie_resenha=? where movie_id=?',
+                 [MovieName, MovieStars, MovieResenha, inputMovieId],
                  (tx, results) => {
                      console.log('Results', results.rowsAffected);
                      if (results.rowsAffected > 0) {
                          Alert.alert(
                               'Sucesso',
-                              'Usuário atualizado com sucesso !!',
+                              'Filme atualizado com sucesso !!',
                               [
                                   {
                                       text: 'Ok',
@@ -81,7 +81,7 @@ const UpdateUser = ({navigation}) => {
                               ],
                               {cancelable: false}
                          );
-                     } else alert('Erro ao atualizar o usuário');
+                     } else alert('Erro ao atualizar o dados do Filme');
                  }
             );
         });
@@ -95,41 +95,41 @@ const UpdateUser = ({navigation}) => {
                          <KeyboardAvoidingView
                               behavior="padding"
                               style={{flex: 1, justifyContent: 'space-between'}}>
-                             <Mytext text="Filtro de Usuário"/>
+                             <Mytext text="Filtro de Filme"/>
                              <Mytextinput
-                                  placeholder="Entre com o Código do Usuário"
+                                  placeholder="Entre com o Código do Filme"
                                   style={{padding: 10}}
                                   onChangeText={
-                                      (inputUserId) => setInputUserId(inputUserId)
+                                      (inputMovieId) => setInputMovieId(inputMovieId)
                                   }
                              />
                              <Mybutton
-                                  title="Buscar Usuário"
-                                  customClick={searchUser}
+                                  title="Buscar Filme"
+                                  customClick={searchMovie}
                              />
                              <Mytextinput
-                                  placeholder="Entre com o Nome"
-                                  value={userName}
+                                  placeholder="Entre com o Nome do filme"
+                                  value={MovieName}
                                   style={{padding: 10}}
                                   onChangeText={
-                                      (userName) => setUserName(userName)
+                                      (MovieName) => setMovieName(MovieName)
                                   }
                              />
                              <Mytextinput
-                                  placeholder="Entre com o Telefone"
-                                  value={'' + userContact}
+                                  placeholder="Entre com a quantidade de estrelas"
+                                  value={'' + MovieStars}
                                   onChangeText={
-                                      (userContact) => setUserContact(userContact)
+                                      (MovieStars) => setMovieStars(MovieStars)
                                   }
                                   maxLength={10}
                                   style={{padding: 10}}
                                   keyboardType="numeric"
                              />
                              <Mytextinput
-                                  value={userAddress}
-                                  placeholder="Entre com o Endereço"
+                                  value={MovieResenha}
+                                  placeholder="Entre com a resenha"
                                   onChangeText={
-                                      (userAddress) => setUserAddress(userAddress)
+                                      (MovieResenha) => setMovieResenha(MovieResenha)
                                   }
                                   maxLength={225}
                                   numberOfLines={5}
@@ -137,8 +137,8 @@ const UpdateUser = ({navigation}) => {
                                   style={{textAlignVertical: 'top', padding: 10}}
                              />
                              <Mybutton
-                                  title="Atualizar Usuário"
-                                  customClick={updateUser}
+                                  title="Atualizar Filme"
+                                  customClick={updateMovie}
                              />
                          </KeyboardAvoidingView>
                      </ScrollView>
@@ -148,4 +148,4 @@ const UpdateUser = ({navigation}) => {
     );
 };
 
-export default UpdateUser;
+export default UpdateMovie;

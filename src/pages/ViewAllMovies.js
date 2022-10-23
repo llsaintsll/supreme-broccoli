@@ -4,13 +4,13 @@ import {DatabaseConnection} from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const ViewAllUser = () => {
+const ViewAllMovies = () => {
     let [flatListItems, setFlatListItems] = useState([]);
 
     useEffect(() => {
         db.transaction((tx) => {
             tx.executeSql(
-                 'SELECT * FROM table_user',
+                 'SELECT * FROM table_movie',
                  [],
                  (tx, results) => {
                      var temp = [];
@@ -25,19 +25,19 @@ const ViewAllUser = () => {
     let listItemView = (item) => {
         return (
              <View
-                  key={item.user_id}
+                  key={item.movie_id}
                   style={{backgroundColor: '#EEE', marginTop: 20, padding: 30, borderRadius: 10}}>
                  <Text style={styles.textheader}>Código</Text>
-                 <Text style={styles.textbottom}>{item.user_id}</Text>
+                 <Text style={styles.textbottom}>{item.movie_id}</Text>
 
                  <Text style={styles.textheader}>Nome</Text>
-                 <Text style={styles.textbottom}>{item.user_name}</Text>
+                 <Text style={styles.textbottom}>{item.movie_name}</Text>
 
-                 <Text style={styles.textheader}>Contato</Text>
-                 <Text style={styles.textbottom}>{item.user_contact}</Text>
+                 <Text style={styles.textheader}>Estrelas</Text>
+                 <Text style={styles.textbottom}>{item.movie_stars}</Text>
 
-                 <Text style={styles.textheader}>Endereço</Text>
-                 <Text style={styles.textbottom}>{item.user_address}</Text>
+                 <Text style={styles.textheader}>Resenha</Text>
+                 <Text style={styles.textbottom}>{item.movie_resenha}</Text>
 
 
              </View>
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ViewAllUser;
+export default ViewAllMovies;

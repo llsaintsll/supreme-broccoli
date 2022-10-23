@@ -7,24 +7,24 @@ import {DatabaseConnection} from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const ViewUser = () => {
-    let [inputUserId, setInputUserId] = useState('');
-    let [userData, setUserData] = useState({});
+const ViewMovie = () => {
+    let [inputMovieId, setInputMovieId] = useState('');
+    let [movieData, setMovieData] = useState({});
 
-    let searchUser = () => {
-        console.log(inputUserId);
-        setUserData({});
+    let searchMovie = () => {
+        console.log(inputMovieId);
+        setMovieData({});
         db.transaction((tx) => {
             tx.executeSql(
-                 'SELECT * FROM table_user where user_id = ?',
-                 [inputUserId],
+                 'SELECT * FROM table_movie where movie_id = ?',
+                 [inputMovieId],
                  (tx, results) => {
                      var len = results.rows.length;
                      console.log('len', len);
                      if (len > 0) {
-                         setUserData(results.rows.item(0));
+                         setMovieData(results.rows.item(0));
                      } else {
-                         alert('Usuário não encontrado !');
+                         alert('Filme não encontrado !');
                      }
                  }
             );
@@ -35,25 +35,25 @@ const ViewUser = () => {
          <SafeAreaView style={{flex: 1}}>
              <View style={{flex: 1, backgroundColor: 'white'}}>
                  <View style={{flex: 1}}>
-                     <Mytext text="Filtro de Usuário"/>
+                     <Mytext text="Filtro de Filme"/>
                      <Mytextinput
-                          placeholder="Entre com o Código do Usuário"
+                          placeholder="Entre com o Código do Filme"
                           onChangeText={
-                              (inputUserId) => setInputUserId(inputUserId)
+                              (inputMovieId) => setInputMovieId(inputMovieId)
                           }
                           style={{padding: 10}}
                      />
-                     <Mybutton title="Buscar Usuário" customClick={searchUser}/>
+                     <Mybutton title="Buscar Filme" customClick={searchMovie}/>
                      <View
                           style={{
                               marginLeft: 35,
                               marginRight: 35,
                               marginTop: 10
                           }}>
-                         <Text>Código : {userData.user_id}</Text>
-                         <Text>Nome : {userData.user_name}</Text>
-                         <Text>Telefone : {userData.user_contact}</Text>
-                         <Text>Endereço : {userData.user_address}</Text>
+                         <Text>Código : {movieData.movie_id}</Text>
+                         <Text>Nome : {movieData.movie_name}</Text>
+                         <Text>Estrelas : {movieData.movie_stars}</Text>
+                         <Text>Resenha : {movieData.movie_resenha}</Text>
                      </View>
                  </View>
              </View>
@@ -61,4 +61,4 @@ const ViewUser = () => {
     );
 };
 
-export default ViewUser;
+export default ViewMovie;

@@ -6,20 +6,20 @@ import {DatabaseConnection} from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const DeleteUser = ({navigation}) => {
-    let [inputUserId, setInputUserId] = useState('');
+const DeleteMovie = ({navigation}) => {
+    let [inputMovieId, setInputMovieId] = useState('');
 
-    let deleteUser = () => {
+    let deleteMovie = () => {
         db.transaction((tx) => {
             tx.executeSql(
-                 'DELETE FROM  table_user where user_id=?',
-                 [inputUserId],
+                 'DELETE FROM  table_movie where movie_id=?',
+                 [inputMovieId],
                  (tx, results) => {
                      console.log('Results', results.rowsAffected);
                      if (results.rowsAffected > 0) {
                          Alert.alert(
                               'Sucesso',
-                              'Usuário Excluído com Sucesso !',
+                              'Filme Excluído com Sucesso !',
                               [
                                   {
                                       text: 'Ok',
@@ -29,7 +29,7 @@ const DeleteUser = ({navigation}) => {
                               {cancelable: false}
                          );
                      } else {
-                         alert('Por favor entre com um código de usuário válido !');
+                         alert('Por favor entre com um código de Filme válido !');
                      }
                  }
             );
@@ -41,17 +41,17 @@ const DeleteUser = ({navigation}) => {
              <View style={{flex: 1, backgroundColor: 'white'}}>
                  <View style={{flex: 1}}>
                      <Mytextinput
-                          placeholder="Entre com o Código do Usuário"
+                          placeholder="Entre com o Código do Filme"
                           onChangeText={
-                              (inputUserId) => setInputUserId(inputUserId)
+                              (inputMovieId) => setInputMovieId(inputMovieId)
                           }
                           style={{padding: 10}}
                      />
-                     <Mybutton title="Excluir Usuário" customClick={deleteUser}/>
+                     <Mybutton title="Excluir Resenha" customClick={deleteMovie}/>
                  </View>
              </View>
          </SafeAreaView>
     );
 };
 
-export default DeleteUser;
+export default DeleteMovie;
